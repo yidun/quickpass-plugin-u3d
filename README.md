@@ -115,6 +115,7 @@ public struct QuickpassUiConfig
     public bool isBottomDialog; // 授权页弹窗是否贴于屏幕底部
 };
 ```
+图片资源放在 Assets/plugins/Android/res/drawable 目录下
 
 ### iOS 
 
