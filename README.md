@@ -8,21 +8,36 @@
 
 ## 所有 Api
 
-- Init(string businessId, int timeout = 6000, bool debug = false)
+## Android
 
-初始化 
+### 初始化 
 
-businessId：业务id
+```
+Init(string businessId, int timeout = 6000, bool debug = false)
+```
 
-timeout：预取号超时时间
+#### 参数说明：
+*   入参说明：
 
-debug：是否开启 debug 日志打印
+    |参数|类型|是否必填|默认值|描述|
+    |----|----|--------|------|----|
+    | businessId | string | 是 | 无 | 易盾分配的业务 id |
+    | timeout | int |否| 6000 |运营商预取号和授权登录接口的超时时间，单位毫秒|
+    | debug | boolean |否| false |是否打开debug开关|
 
-- SetUiConfig(QuickpassUiConfig uiConfig)
+### 预取号
 
-设置授权页样式
+```
+PreFetchNumber()
+```
 
-### Android
+预取号的回调在 QuickpassPreCallback()中，预取号可以加快后面取号的速度，建议尽量提前
+
+### 设置授权页样式
+
+```
+SetUiConfig(QuickpassUiConfig uiConfig)
+```
 
 QuickpassUiConfig 是可配置项，具体的配置项看注释
 
@@ -116,6 +131,13 @@ public struct QuickpassUiConfig
 };
 ```
 图片资源放在 Assets/plugins/Android/res/drawable 目录下
+
+### 取号
+
+```
+OnPassLogin()
+```
+即打开授权页，取号的回调在 QuickpassCallback()中。取号之前务必设置授权页样式，否则打开的是默认的授权页
 
 ## iOS 
 
