@@ -13,7 +13,7 @@
 ### 初始化 
 
 ```
-Init(string businessId, int timeout = 6000, bool debug = false)
+Init(businessId, timeout, debug)
 ```
 
 #### 参数说明：
