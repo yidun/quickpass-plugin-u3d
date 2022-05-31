@@ -232,7 +232,8 @@ static void uiConfigHandler (string resultStr) {
 }
 ```
 
-#### action 参数说明：
+#### 授权页UI事件回调说明：
+*  回调参数说明：
 
     |回调参数|类型|描述|
     |----|----|----|
