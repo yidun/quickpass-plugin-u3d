@@ -128,7 +128,28 @@ public struct QuickpassUiConfig
     public int dialogX; // 授权页弹窗 X 轴偏移量，以屏幕中心为原点
     public int dialogY; // 授权页弹窗 Y 轴偏移量，以屏幕中心为原点
     public bool isBottomDialog; // 授权页弹窗是否贴于屏幕底部
+    public List<Widget> widgets; // 自定义view
 };
+```
+
+```
+public struct Widget
+{
+    public string viewId; // view的id，点击时返回
+    public string type; // view类型，只支持 Button TextView ImageView
+    public string text; // 文本内容
+    public int textSize; // 文本大小
+    public string textColor; // 文本颜色
+    public int left; // 距离左边的距离
+    public int top; // 距离顶部的距离
+    public int right; // 距离右边的距离
+    public int bottom; // 距离底部的距离
+    public int width; // 宽度
+    public int height; // 高度
+    public string backgroundColor; // 背景颜色
+    public string backgroundImage; // 背景图片名字
+    public int positionType; // 在授权页的哪个区域 0：在内容区域 1：在状态栏区域
+}
 ```
 图片资源放在 Assets/plugins/Android/res/drawable 目录下
 
@@ -138,6 +159,12 @@ public struct QuickpassUiConfig
 OnPassLogin()
 ```
 即打开授权页，取号的回调在 QuickpassCallback()中。取号之前务必设置授权页样式，否则打开的是默认的授权页
+
+### 判断是否支持一键登录(非必须)
+
+```
+CheckVerifyEnable()
+```
 
 ## iOS 
 
