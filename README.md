@@ -240,7 +240,7 @@ static void uiConfigHandler (string resultStr) {
 
     |回调参数|类型|描述|
     |----|----|----|
-    | action | String | authViewDidLoad 表示正在加载授权页<br>authViewWillAppear 表示授权页已经出现 <br> authViewWillDisappear 表示授权页将要消失 <br> authViewDidDisappear表示授权页已经消失<br>authViewDealloc 表示授权页销毁<br> appDPrivacy 表示点击了默认协议<br>appFPrivacy 表示点击了议第一个协议点击 <br> appSPrivacy 表示点击了第二个协议 <br> loginAction 表示点击了登录按钮，data.checked = true 表示在点击登录按钮时复选框选已选中反之<br> checkedAction 表示点击了复选框，data.checked = true 表示复选框已选中反之<br>其他自定义的action|
+    | action | String |  appDPrivacy 表示点击了默认协议<br>appFPrivacy 表示点击了议第一个协议点击 <br> appSPrivacy 表示点击了第二个协议 <br> loginAction 表示点击了登录按钮，data.checked = true 表示在点击登录按钮时复选框选已选中反之<br> checkedAction 表示点击了复选框，data.checked = true 表示复选框已选中反之<br>其他自定义的action <br> backAction 表示点击了返回按钮| 
 
 ###  取号，即打开授权页
 
