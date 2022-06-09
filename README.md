@@ -226,9 +226,12 @@ setupUiConfig(json,fp);
 ### 授权页UI事件回调
 
 ```
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public delegate void UiConfigHandler(string resultString);
+    
 [AOT.MonoPInvokeCallback(typeof(UiConfigHandler))]
 static void uiConfigHandler (string resultStr) {
-    
+    Debug.Log(resultStr);        
 }
 ```
 
