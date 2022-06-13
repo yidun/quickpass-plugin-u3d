@@ -10,7 +10,7 @@
 
 ## Android
 
-### 初始化 
+### 初始化
 
 ```
 Init(businessId, timeout, debug)
@@ -87,7 +87,7 @@ public struct QuickpassUiConfig
     public int loginBtnBottomYOffset; // 登录按钮距离屏幕底部偏移
     public int loginBtnXOffset; // 登录按钮水平方向的偏移
     public string privacyTextColor; // 隐私栏文本颜色，不包括协议
-    public string privacyProtocolColor; // 隐私栏协议颜色 
+    public string privacyProtocolColor; // 隐私栏协议颜色
     public int privacySize; // 隐私栏区域字体大小
     public int privacyDpSize; // 隐私栏区域字体大小 dp
     public int privacyTopYOffset; // 隐私栏顶部Y轴偏移
@@ -128,28 +128,7 @@ public struct QuickpassUiConfig
     public int dialogX; // 授权页弹窗 X 轴偏移量，以屏幕中心为原点
     public int dialogY; // 授权页弹窗 Y 轴偏移量，以屏幕中心为原点
     public bool isBottomDialog; // 授权页弹窗是否贴于屏幕底部
-    public List<Widget> widgets; // 自定义view
 };
-```
-
-```
-public struct Widget
-{
-    public string viewId; // view的id，点击时返回
-    public string type; // view类型，只支持 Button TextView ImageView
-    public string text; // 文本内容
-    public int textSize; // 文本大小
-    public string textColor; // 文本颜色
-    public int left; // 距离左边的距离
-    public int top; // 距离顶部的距离
-    public int right; // 距离右边的距离
-    public int bottom; // 距离底部的距离
-    public int width; // 宽度
-    public int height; // 高度
-    public string backgroundColor; // 背景颜色
-    public string backgroundImage; // 背景图片名字
-    public int positionType; // 在授权页的哪个区域 0：在内容区域 1：在状态栏区域
-}
 ```
 图片资源放在 Assets/plugins/Android/res/drawable 目录下
 
@@ -160,13 +139,7 @@ OnPassLogin()
 ```
 即打开授权页，取号的回调在 QuickpassCallback()中。取号之前务必设置授权页样式，否则打开的是默认的授权页
 
-### 判断是否支持一键登录(非必须)
-
-```
-CheckVerifyEnable()
-```
-
-## iOS 
+## iOS
 
 ### 初始化SDK
 
@@ -184,17 +157,17 @@ init(businessId,timeout);
     | timeout | int |否| 3 |运营商预取号和授权登录接口的超时时间，单位秒|
 
 ### 预取号
- 
+
 ```
 /// 预取号调用
 PreFetchNumberHandler handler = new PreFetchNumberHandler(preFetchNumberHandler);
 IntPtr fp = Marshal.GetFunctionPointerForDelegate(handler);
 preFetchNumber(fp);
-  
+
  /// 预取号值的回调
 [AOT.MonoPInvokeCallback(typeof(PreFetchNumberHandler))]
 static void preFetchNumberHandler (string resultStr) {
-    Debug.Log(resultStr);    
+    Debug.Log(resultStr);
 }
 ```
 
@@ -216,31 +189,9 @@ static void preFetchNumberHandler (string resultStr) {
 StreamReader sr = new StreamReader(Application.dataPath + "/Resources/ios-light-config.json");
 string uiConfig = sr.ReadToEnd();
 string json = JsonUtility.ToJson(uiConfig);
-
-UiConfigHandler handler = new UiConfigHandler(uiConfigHandler);
-IntPtr fp = Marshal.GetFunctionPointerForDelegate(handler);
-setupUiConfig(json,fp); 
+setupUiConfig(json);
 
 ```
-
-### 授权页UI事件回调
-
-```
-[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public delegate void UiConfigHandler(string resultString);
-    
-[AOT.MonoPInvokeCallback(typeof(UiConfigHandler))]
-static void uiConfigHandler (string resultStr) {
-    Debug.Log(resultStr);        
-}
-```
-
-#### 授权页UI事件回调说明：
-*  回调参数说明：
-
-    |回调参数|类型|描述|
-    |----|----|----|
-    | action | String |  appDPrivacy 表示点击了默认协议<br>appFPrivacy 表示点击了议第一个协议点击 <br> appSPrivacy 表示点击了第二个协议 <br> loginAction 表示点击了登录按钮，data.checked = true 表示在点击登录按钮时复选框选已选中反之<br> checkedAction 表示点击了复选框，data.checked = true 表示复选框已选中反之<br>其他自定义的action <br> backAction 表示点击了返回按钮| 
 
 ###  取号，即打开授权页
 
@@ -253,10 +204,10 @@ IntPtr fp = Marshal.GetFunctionPointerForDelegate(handler);
 OnPassLogin(fp);
 
 /// 点击登录按钮，回调值
-static void onPassLoginHandler (string resultStr) {        
+static void onPassLoginHandler (string resultStr) {
 Debug.Log(resultStr);
 }
-    
+
 ```
 
 #### 参数说明：
@@ -284,8 +235,8 @@ Debug.Log(resultStr);
 | backgroundColor   |设置授权页面背景颜色|
 | authWindowPop | 设置窗口类型<br>0 表示全屏模式<br> 1 表示窗口在屏幕的中间<br> 2 表示窗口在屏幕的底部(不支持横屏)|
 | faceOrientation   |设置授权页面方向<br> 0 表示设备方向未知<br>1 表示设置保持直立<br>2 表示设备上下颠倒 <br>3 表示设备向左旋转 <br> 4 表示设备向右旋转 |
-| bgImage   |设置授权转背景图片，例如 ："图片名.后缀"|  
-| contentMode   |设置背景图片显示模式 0 表示 UIViewContentModeScaleToFill，1表示UIViewContentModeScaleAspectFit ，2表示UIViewContentModeScaleAspectFill|  
+| bgImage   |设置授权转背景图片，例如 ："图片名.后缀"|
+| contentMode   |设置背景图片显示模式 0 表示 UIViewContentModeScaleToFill，1表示UIViewContentModeScaleAspectFit ，2表示UIViewContentModeScaleAspectFill|
 
 
 ##### 转场动画
@@ -298,10 +249,10 @@ Debug.Log(resultStr);
 | :-------- | -------- |
 | widgets | 设置授权界面自定义控件<br>例如 ： "widgets": [
         {
-            "type": "UIButton", 
-            "UIButtonType": 0, 
+            "type": "UIButton",
+            "UIButtonType": 0,
             "image": "static/weixin.png",
-            "title": "",    
+            "title": "",
             "titleColor": "#000000",
             "titleFont": 12,
             "cornerRadius": 20,
@@ -310,10 +261,10 @@ Debug.Log(resultStr);
             "backgroundImage":"static/yidun_logo.png"
         },
         {
-            "type": "UIButton", 
-            "UIButtonType": 0, 
+            "type": "UIButton",
+            "UIButtonType": 0,
             "image": "static/qq.png",
-            "title": "",    
+            "title": "",
             "titleColor": "#FFFFFF",
             "titleFont": 12,
             "cornerRadius": 20,
@@ -323,7 +274,7 @@ Debug.Log(resultStr);
         }]|
 
 ##### 背景设置视频
- 
+
 | 属性 | 说明 |
 | :-------- | -------- |
 | localVideoFileName | 设置视频本地名称 例如xx.mp4* |
@@ -342,7 +293,7 @@ Debug.Log(resultStr);
 | 属性                                              | 说明                                                         |
 | :-------- | -------- |
 | statusBarStyle | 设置状态栏样式<br> iOS13之前 0表示文字黑色，1表示文字白色<br> iOS13之后 0表示自动选择黑色或白色，3 表示文字黑色，2 表示文字白色|
-                    
+
 ##### 导航栏
 
 | 属性                                              | 说明                                                         |
@@ -418,7 +369,7 @@ Debug.Log(resultStr);
 | logBtnHeight| 设置登录按钮的高度，默认44|
 
 ##### 隐私协议
-          
+
 若勾选框需要展示，请务必设置勾选框的选中态图片与未选中态图片
 协议未勾选时，登录按钮是否可点击可以自定义设置，弹窗提示的样式也可以自定义
 
@@ -435,11 +386,15 @@ Debug.Log(resultStr);
 | appPrivacyOriginRightMargin| 设置隐私条款距离屏幕右边的距离 默认 40|
 | appPrivacyOriginBottomMargin| 设置隐私条款距离屏幕的距离 默认 40|
 | privacyNavReturnImg| 设置用户协议界面，导航栏返回图标，默认用导航栏返回图标|
-| appPrivacyText| 设置隐私的内容模板：全句可自定义但必须保留"《默认》"字段表明SDK默认协议,否则设置不生效。必设置项（参考SDK的demo）appPrivacyText设置内容：登录并同意《默认》和易盾协议1、网易协议2登录并支持一键登录，展示：登录并同意中国移动条款协议和易盾协议1、网易协议2登录并支持一键登录 |
+| appPrivacyText| 设置隐私的内容模板：全句可自定义但必须保留"《默认》"字段表明SDK默认协议,否则设置不生效。必设置项（参考SDK的demo）appPrivacyText设置内容：登录即同意《默认》并授权获得《用户政策》和《用户隐私协议》以及《用户行为准则》和《用户相关条令》 |
 | appFPrivacyText| 设置开发者隐私条款协议名称（第一个协议）|
 | appFPrivacyURL| 设置开发者隐私条款协议url（第一个协议）|
 | appSPrivacyText| 设置开发者隐私条款协议名称（第二个协议）|
 | appSPrivacyURL| 设置开发者隐私条款协议url（第二个协议）|
+| appTPrivacyText| 设置开发者隐私条款协议名称（第三个协议）|
+| appTPrivacyURL| 设置开发者隐私条款协议url（第三个协议）|
+| appFourPrivacyText| 设置开发者隐私条款协议名称（第四个协议）|
+| appFourPrivacyURL| 设置开发者隐私条款协议url（第四个协议）|
 | shouldHiddenPrivacyMarks| 设置是否隐藏"《默认》" 两边的《》，默认不隐藏|
 | privacyColor| 设置隐私条款名称颜色|
 | privacyFont| 设置隐私条款字体的大小|
@@ -464,6 +419,4 @@ Debug.Log(resultStr);
 | authWindowCenterOriginX| 设置居中弹窗沿X轴移动的距离。例如 ：authWindowCenterOriginX = 10 表示中间点沿X轴向右偏移10个像素|
 | popCenterCornerRadius| 设置居中弹窗模式下，弹窗的圆角，默认圆角为16|
 | popBottomCornerRadius| 设置底部弹窗模式下，弹窗的圆角，默认圆角为16，注：只可修改顶部左右二边的值|
-| isOpenSwipeGesture| 设置底部弹窗模式下，是否开启轻扫手势，向下轻扫关闭弹窗。默认关闭| 
-
-
+| isOpenSwipeGesture| 设置底部弹窗模式下，是否开启轻扫手势，向下轻扫关闭弹窗。默认关闭|
