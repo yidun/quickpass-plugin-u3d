@@ -201,8 +201,8 @@ setupUiConfig(json);
 /// 打开授权页面
 OnPassLoginHandler handler = new OnPassLoginHandler(onPassLoginHandler);
 IntPtr fp = Marshal.GetFunctionPointerForDelegate(handler);
-OnPassLogin(fp);
-
+OnPassLogin(false,fp); // false 授权页弹出过程中没有动画，true 授权页弹出过程中有动画
+ 
 /// 点击登录按钮，回调值
 static void onPassLoginHandler (string resultStr) {
 Debug.Log(resultStr);
