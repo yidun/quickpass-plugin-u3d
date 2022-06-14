@@ -107,6 +107,8 @@ public struct QuickpassUiConfig
     public string protocolLink; // 设置隐私栏协议链接
     public string protocol2Text; // 设置隐私栏协议 2 文本
     public string protocol2Link;  // 设置隐私栏协议 2 链接
+    public string protocol3Text; // 设置隐私栏协议 3 文本
+    public string protocol3Link;  // 设置隐私栏协议 3 链接
     public string privacyTextEnd; // 隐私栏声明部分尾部文案
     public string protocolNavTitle; // 协议 Web 页面导航栏标题
     public string protocolNavBackIcon; // 协议 Web 页面导航栏返回图标
