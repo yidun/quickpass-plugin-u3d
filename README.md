@@ -1,12 +1,50 @@
-# 号码认证对应的 Unity package 工程
+# 号码认证
+直连三大运营商，一步校验手机号与当前 SIM 卡号一致性。优化注册/登录/支付等场景验证流程
 
-## 使用方法
+## 平台支持（兼容性）
+  | Android | iOS |  
+  | ---- | ----- |
+  | 适用版本区间：4.4以上|适用版本区间：9 - 14 | 
+
+## 资源引入/集成
 
 下载并解压出 quickpass-plugin-u3d.unitypackage，在 Assets 目录右键选择 Import Package 导入 quickpass-plugin-u3d.unitypackage 资源包
 
 其中 TestBehaviourScript.cs 是调用示例代码
 
-## 所有 Api
+### 项目开发配置
+
+Android release 包需要添加混淆规则
+
+```
+-dontwarn com.cmic.sso.sdk.**
+-keep class com.cmic.sso.**{*;}
+-dontwarn com.sdk.**
+-keep class com.sdk.** { *;}
+-keep class cn.com.chinatelecom.account.**{*;}
+-keep public class * extends android.view.View
+-keep class com.netease.nis.quicklogin.entity.**{*;}
+-keep class com.netease.nis.quicklogin.listener.**{*;}
+-keep class com.netease.nis.quicklogin.QuickLogin{
+    public <methods>;
+    public <fields>;
+}
+-keep class com.netease.nis.quicklogin.helper.UnifyUiConfig{*;}
+-keep class com.netease.nis.quicklogin.helper.UnifyUiConfig$Builder{
+     public <methods>;
+     public <fields>;
+ }
+-keep class com.netease.nis.quicklogin.utils.LoginUiHelper$CustomViewListener{
+     public <methods>;
+     public <fields>;
+}
+-keep class com.netease.nis.basesdk.**{
+    public *;
+    protected *;
+}
+```
+
+## 插件方法说明
 
 ## Android
 
@@ -33,6 +71,28 @@ PreFetchNumber()
 
 预取号的回调在 QuickpassPreCallback()中，预取号可以加快后面取号的速度，建议尽量提前
 
+```
+public class QuickpassPreCallback : AndroidJavaProxy
+{
+    public QuickpassPreCallback() : base("com.netease.nis.quicklogin.listener.QuickLoginPreMobileListener") { }
+
+    public void onGetMobileNumberSuccess(string YDToken, string mobileNumber)
+    {
+        // 预取号成功，YDToken：易盾token mobileNumber：掩码
+        Debug.Log("onGetMobileNumberSuccess" + YDToken);
+        Debug.Log("onGetMobileNumberSuccess" + mobileNumber);
+    }
+
+    public void onGetMobileNumberError(string YDToken, string msg)
+    {
+        // 预取号失败 msg 中有详细的失败信息
+        Debug.Log("onGetMobileNumberError" + YDToken);
+        Debug.Log("onGetMobileNumberError" + msg);
+    }
+}
+
+```
+
 ### 设置授权页样式
 
 ```
@@ -41,105 +101,222 @@ SetUiConfig(QuickpassUiConfig uiConfig)
 
 QuickpassUiConfig 是可配置项，具体的配置项看注释
 
-```
-public struct QuickpassUiConfig
-{
-    public string statusBarColor; // 状态栏颜色
-    public bool isStatusBarDarkColor;// 设置状态栏字体图标颜色是否为暗色(黑色)
-    public string navBackIcon;// 导航栏返回按钮
-    public int navBackIconWidth;// 导航栏返回按钮宽
-    public int navBackIconHeight;// 导航栏返回按钮高
-    public bool isHideBackIcon; // 是否隐藏导航栏返回按钮
-    public int navHeight; // 导航栏高度
-    public string navBackgroundColor; // 导航栏背景颜色
-    public string navTitle; // 导航栏标题
-    public int navTitleSize;// 导航栏标题字体大小
-    public bool isNavTitleBold; // 导航栏标题是否为粗体
-    public string navTitleColor; // 导航栏标题颜色
-    public bool isHideNav; // 是否隐藏导航栏
-    public string logoIconName; // 应用 logo 图标
-    public int logoWidth; // logo宽度
-    public int logoHeight; //  logo 高度
-    public int logoTopYOffset; //  logo 顶部 Y 轴偏移
-    public int logoBottomYOffset; //  logo 距离屏幕底部偏移
-    public int logoXOffset; //  logo 水平方向的偏移
-    public bool isHideLogo; // 是否隐藏 logo
-    public string maskNumberColor; // 手机掩码颜色
-    public int maskNumberSize; // 手机掩码字体大小
-    public int maskNumberDpSize; // 手机掩码字体大小 dp
-    public int maskNumberTopYOffset; // 手机掩码顶部Y轴偏移
-    public int maskNumberBottomYOffset; // 手机掩码距离屏幕底部偏移
-    public int maskNumberXOffset; // 手机掩码水平方向的偏移
-    public int sloganSize; // 认证品牌字体大小
-    public int sloganDpSize; // 认证品牌字体大小 dp
-    public string sloganColor; // 认证品牌颜色
-    public int sloganTopYOffset; // 认证品牌顶部 Y 轴偏移
-    public int sloganBottomYOffset; // 认证品牌距离屏幕底部偏移
-    public int sloganXOffset; // 认证品牌水平方向的偏移
-    public string loginBtnText; // 登录按钮文本
-    public int loginBtnTextSize; // 登录按钮文本字体大小
-    public int loginBtnTextDpSize; // 登录按钮文本字体大小 dp
-    public string loginBtnTextColor; // 登录按钮文本颜色
-    public int loginBtnWidth; // 登录按钮宽度
-    public int loginBtnHeight; // 登录按钮高度
-    public string loginBtnBackgroundRes; // 登录按钮背景图标
-    public int loginBtnTopYOffset; // 登录按钮顶部Y轴偏移
-    public int loginBtnBottomYOffset; // 登录按钮距离屏幕底部偏移
-    public int loginBtnXOffset; // 登录按钮水平方向的偏移
-    public string privacyTextColor; // 隐私栏文本颜色，不包括协议
-    public string privacyProtocolColor; // 隐私栏协议颜色
-    public int privacySize; // 隐私栏区域字体大小
-    public int privacyDpSize; // 隐私栏区域字体大小 dp
-    public int privacyTopYOffset; // 隐私栏顶部Y轴偏移
-    public int privacyBottomYOffset; // 隐私栏距离屏幕底部偏移
-    public int privacyTextMarginLeft; // 隐私栏文本和复选框的距离
-    public int privacyMarginLeft; // 设置隐私栏左侧边距
-    public int privacyMarginRight; // 设置隐私栏右侧边距
-    public bool privacyState; // 隐私栏协议复选框勾选状态
-    public bool isHidePrivacySmh; // 是否隐藏隐私协议书名号《》
-    public bool isHidePrivacyCheckBox; // 是否隐藏隐私栏勾选框
-    public bool isPrivacyTextGravityCenter; // 协议文本是否居中
-    public int checkBoxGravity; // 隐私栏勾选框与文本协议对齐方式
-    public string checkedImageName; // 隐私栏复选框选中时的图片资源
-    public string unCheckedImageName; // 隐私栏复选框未选中时的图片资源
-    public string privacyTextStart; // 隐私栏声明部分起始文案
-    public string protocolText; // 设置隐私栏协议文本
-    public string protocolLink; // 设置隐私栏协议链接
-    public string protocol2Text; // 设置隐私栏协议 2 文本
-    public string protocol2Link;  // 设置隐私栏协议 2 链接
-    public string protocol3Text; // 设置隐私栏协议 3 文本
-    public string protocol3Link;  // 设置隐私栏协议 3 链接
-    public string privacyTextEnd; // 隐私栏声明部分尾部文案
-    public string protocolNavTitle; // 协议 Web 页面导航栏标题
-    public string protocolNavBackIcon; // 协议 Web 页面导航栏返回图标
-    public int protocolNavHeight; // 协议 Web 页面导航栏高度
-    public string protocolNavTitleColor; // 协议Web页面导航栏标题颜色
-    public int protocolNavTitleSize; // 协议Web页面导航栏标题大小
-    public int protocolNavTitleDpSize; // 协议Web页面导航栏标题大小 dp
-    public int protocolNavBackIconWidth; // 协议 Web 页面导航栏返回按钮宽度
-    public int protocolNavBackIconHeight; // 协议 Web 页面导航栏返回按钮高度
-    public string protocolNavColor; // 协议Web页面导航栏颜色
-    public string backgroundImage; // 登录页面背景
-    public string backgroundGif; // 登录页面背景为 Gif
-    public string backgroundVideo; // 登录页面背景为视频
-    public string backgroundVideoImage; // 视频背景时的预览图
-    public bool isLandscape; // 是否横屏
-    public bool isDialogMode; // 是否弹窗模式
-    public int dialogWidth; // 授权页弹窗宽度
-    public int dialogHeight; // 授权页弹窗高度
-    public int dialogX; // 授权页弹窗 X 轴偏移量，以屏幕中心为原点
-    public int dialogY; // 授权页弹窗 Y 轴偏移量，以屏幕中心为原点
-    public bool isBottomDialog; // 授权页弹窗是否贴于屏幕底部
-};
-```
-图片资源放在 Assets/plugins/Android/res/drawable 目录下
+**<font color=red>开发者不得通过任何技术手段，将授权页面的隐私栏、手机掩码号、供应商品牌内容隐藏、覆盖</font>**<br>
+**<font color=red>网易易盾与运营商会对应用授权页面进行审查，若发现上述违规行为，网易易盾有权将您的一键登录功能下线</font>**
 
+![安卓规范示意图](https://nos.netease.com/cloud-website-bucket/fc608fc8c376e8b384e947e575ef8b5f.jpg)
+![自定义展示图](https://nos.netease.com/cloud-website-bucket/410d6012173c5531b1065909c9484d36.jpg)
+
+##### 状态栏
+| 配置项                        | 说明                                   |
+|----------------------------| -------------------------------------- |
+| statusBarColor:string      |     设置状态栏背景颜色，十六进制RGB值，如 "#ff0000"|
+| isStatusBarDarkColor:bool  | 设置状态栏字体图标颜色是否为暗色(黑色) |
+
+##### 导航栏
+
+| 配置项                                             | 说明                                                         |
+|:------------------------------------------------| ------------------------------------------------------------ |
+| navBackIcon:string                              | 导航栏图标，图标资源放在 Assets/plugins/Android/res/drawable 目录下，这里配置图标名字 |
+| navBackIconWidth:int                            | 设置导航栏返回图标的宽度，单位 dp                                     |
+| navBackIconHeight:int                           | 设置导航栏返回图标的高度，单位 dp                                     |
+| navBackIconGravity:int                          | 设置导航栏返回图标位置，居左 3，居右 5，默认居左                                    |
+| isHideBackIcon:bool                             | 设置是否隐藏导航栏返回按钮                                       |
+| navBackgroundColor:string                       | 设置导航栏背景颜色，十六进制RGB值，如 "#ff0000"                                           |
+| navHeight:int                                   | 设置导航栏高度，单位 dp                                       |
+| navTitle:string                                 | 设置导航栏标题                                               |
+| navTitleColor:string                            | 设置导航栏标题颜色，十六进制RGB值，如 "#ff0000"                                          |
+| navTitleSize:int                                | 设置导航栏标题大小，单位 sp                                   |
+| isNavTitleBold:bool                             | 设置导航栏标题是否为粗体                                     |
+| isHideNav:bool                                  | 设置是否隐藏导航栏                                           |
+
+##### 应用 Logo
+
+| 配置项                                       | 说明                                                         |
+|:------------------------------------------| ------------------------------------------------------------ |
+| logoIconName:string                       | 应用 logo 图标，图标资源放在 Assets/plugins/Android/res/drawable 目录下，这里配置图标名字 |
+| logoWidth:int                             | 设置应用logo宽度，单位dp                                     |
+| logoHeight:int                            | 设置应用 logo 高度，单位 dp                                     |
+| logoTopYOffset:int                        | 设置 logo 顶部 Y 轴偏移，单位 dp                                  |
+| logoBottomYOffset:int                     | 设置 logo 距离屏幕底部偏移，单位 dp                             |
+| logoXOffset:int                           | 设置 logo 水平方向的偏移，单位 dp                               |
+| isHideLogo:bool                           | 设置是否隐藏 logo                                             |
+
+##### 手机掩码
+
+| 配置项                                                        | 说明                                                         |
+|:-----------------------------------------------------------| ------------------------------------------------------------ |
+| maskNumberColor:string                                     | 设置手机掩码颜色，十六进制RGB值，如 "#ff0000"                                      |
+| maskNumberSize:int                                         | 设置手机掩码字体大小，单位 px                                |
+| maskNumberXOffset:int                                      | 设置手机掩码水平方向的偏移，单位 dp                           |
+| maskNumberDpSize:int                                       | 设置手机掩码字体大小，单位 dp                                 |
+| maskNumberTopYOffset:int                                   | 设置手机掩码顶部Y轴偏移，单位 dp                         |
+| maskNumberBottomYOffset:int                                | 设置手机掩码距离屏幕底部偏移，单位 dp                           |
+
+##### 认证品牌
+
+| 配置项                                           | 说明                                 |
+|:----------------------------------------------| ------------------------------------ |
+| sloganSize:int                                | 设置认证品牌字体大小，单位 px         |
+| sloganDpSize:int                              | 设置认证品牌字体大小，单位 dp         |
+| sloganColor:string                            | 设置认证品牌颜色，十六进制RGB值，如 "#ff0000"                     |
+| sloganTopYOffset:int                          | 设置认证品牌顶部 Y 轴偏移，单位 dp      |
+| sloganBottomYOffset:int                       | 设置认证品牌距离屏幕底部偏移，单位 dp |
+| sloganXOffset:int                             | 设置认证品牌水平方向的偏移，单位 dp   |
+
+##### 登录按钮
+
+| 配置项                                                  | 说明                                                 |
+|:-----------------------------------------------------| ---------------------------------------------------- |
+| loginBtnText:string                                  | 设置登录按钮文本                                     |
+| loginBtnTextSize:int                                 | 设置登录按钮文本字体大小，单位 px                     |
+| loginBtnTextDpSize:int                               | 设置登录按钮文本字体大小，单位 dp                     |
+| loginBtnTextColor:string                             | 设置登录按钮文本颜色，十六进制RGB值，如 "#ff0000"                                 |
+| loginBtnWidth:int                                    | 设置登录按钮宽度，单位 dp                             |
+| loginBtnHeight:int                                   | 设置登录按钮高度，单位 dp                             |
+| loginBtnBackgroundRes:string                         | 设置登录按钮背景图标，图标资源放在 Assets/plugins/Android/res/drawable 目录下，这里配置图标名字 |
+| loginBtnTopYOffset:int                               | 设置登录按钮顶部Y轴偏移，单位 dp                      |
+| loginBtnBottomYOffset:int                            | 设置登录按钮距离屏幕底部偏移，单位 dp                 |
+| loginBtnXOffset:int                                  | 设置登录按钮水平方向的偏移，单位 dp                   |
+
+##### 隐私协议
+
+| 配置项                                                        | 说明                                                         |
+|:-----------------------------------------------------------| ------------------------------------------------------------ |
+| privacyTextColor:string                                    | 设置隐私栏文本颜色，不包括协议 ，如若隐私栏协议文案为：登录即同意《中国移动认证条款》且授权 QuickLogin 登录， 则该API对除协议‘《中国移动认证条款》’区域外的其余文本生效 |
+| privacyProtocolColor:string                                | 设置隐私栏协议颜色 。例如：登录即同意《中国移动认证条款》且授权 QuickLogin 登录 ， 则该 API 仅对‘《中国移动认证条款》’文案生效 |
+| privacySize:int                                            | 设置隐私栏区域字体大小，单位 px                               |
+| privacyDpSize:int                                          | 设置隐私栏区域字体大小，单位 dp                               |
+| privacyTopYOffset:int                                      | 设置隐私栏顶部Y轴偏移，单位 dp                                |
+| privacyBottomYOffset:int                                   | 设置隐私栏距离屏幕底部偏移，单位 dp                           |
+| privacyTextMarginLeft:int                                  | 设置隐私栏复选框和文字内边距，单位 dp                             |
+| privacyMarginLeft:int                                      | 设置隐私栏水平方向的偏移，单位 dp                             |
+| privacyMarginRight:int                                     | 设置隐私栏右侧边距，单位 dp                                   |
+| privacyState:bool                                          | 设置隐私栏协议复选框勾选状态，true 勾选，false 不勾选          |
+| isHidePrivacyCheckBox:bool                                 | 设置是否隐藏隐私栏勾选框                                     |
+| isPrivacyTextGravityCenter:bool                            | 设置隐私栏文案换行后是否居中对齐，如果为true则居中对齐，否则左对齐 |
+| checkBoxGravity:int                                        | 设置隐私栏勾选框与文本协议对齐方式，可选择顶部（48），居中（17），底部（80）等 |
+| checkBoxWith:int                                           | 设置隐私栏复选框宽度，单位 dp|
+| checkBoxHeight:int                                         | 设置隐私栏复选框高度，单位 dp |
+| checkedImageName:string                                    | 设置隐私栏复选框选中时的图片资源，图标资源放在 Assets/plugins/Android/res/drawable 目录下，这里配置图标名字 |
+| unCheckedImageName:string                                  | 设置隐私栏复选框未选中时的图片资源，图标资源放在 Assets/plugins/Android/res/drawable 目录下，这里配置图标名字 |
+| privacyTextStart:string                                    | 设置隐私栏声明部分起始文案 。如：隐私栏声明为"登录即同意《隐私政策》和《中国移动认证条款》且授权易盾授予本机号码"，则可传入"登录即同意" |
+| isHidePrivacySmh:bool                                      | 是否隐藏运营商协议书名号                                           |
+| protocolText:string                                        | 设置隐私栏协议文本                                           |
+| protocolLink:string                                        | 设置隐私栏协议链接                                           |
+| protocol2Text:string                                       | 设置隐私栏协议 2 文本                                          |
+| protocol2Link:string                                       | 设置隐私栏协议 2 链接                                          |
+| protocol3Text:string                                       | 设置隐私栏协议 3 文本                                          |
+| protocol3Link:string                                       | 设置隐私栏协议 3 链接                                          |
+| privacyTextEnd:string                                      | 设置隐私栏声明部分尾部文案。如：隐私栏声明为"登录即同意《隐私政策》和《中国移动认证条款》且授权易盾授予本机号码"，则可传入"且授权易盾授予本机号码" |
+
+##### 协议详情 Web 页面导航栏
+
+| 配置项                                                        | 说明                                                  |
+|:-----------------------------------------------------------| --------------------------------------------------- |
+| protocolNavTitle:string                                    | 设置协议 Web 页面导航栏标题，如果需要根据不同运营商设置不同标题|
+| protocolNavBackIcon:string                                 | 设置协议 Web 页面导航栏返回图标，图标资源放在 Assets/plugins/Android/res/drawable 目录下，这里配置图标名字 |
+| protocolNavColor:string                                    | 设置协议Web页面导航栏颜色                                    |
+| protocolNavTitleColor:string                               | 协议Web页面导航栏标题颜色                                    |
+| protocolNavHeight:int                                      | 设置协议 Web 页面导航栏高度                                    |
+| protocolNavTitleSize:int                                   | 设置协议Web页面导航栏标题大小，单位 px                        |
+| protocolNavTitleDpSize:int                                 | 设置协议 Web 页面导航栏标题大小，单位 dp                        |
+| protocolNavBackIconWidth:int                               | 设置协议 Web 页面导航栏返回按钮宽度，单位 dp                    |
+| protocolNavBackIconHeight:int                              | 设置协议 Web 页面导航栏返回按钮高度，单位 dp                    |
+
+##### 其他
+
+| 配置项                         | 说明                                                                                     |
+|:----------------------------|----------------------------------------------------------------------------------------|
+| backgroundImage:string      | 设置登录页面背景，图片资源放在 Assets/plugins/Android/res/drawable 目录下，这里配置图片名字                       |
+| backgroundGif:string        | 设置登录页面背景为 Gif，Gif 资源需要放置到 Assets/plugins/Android/res/drawable 目录下，传入资源名称即可             |
+| backgroundVideo:string      | 设置登录页面背景为视频，视频放在 Assets/plugins/Android/res/raw 文件夹下，这里配置视频文件名字。必须同时配置 backgroundVideo |
+| backgroundVideoImage:string | 设置视频背景时的预览图，图片放在 Assets/plugins/Android/res/drawable 下，这里配置图标名字，配合 backgroundVideo 使用  |
+| enterAnimation:string       | 设置授权页进场动画，enterAnimation 进场动画xml无后缀文件名。放置在 Assets/plugins/Android/res/anim 目录下         |
+| exitAnimation:string        | 设置授权页退出动画，exitAnimation 进场动画xml无后缀文件名。放置在 Assets/plugins/Android/res/anim 目录下          |
+| isLandscape:bool            | 是否横屏                                                                                   |
+| isDialogMode:bool           | 是否弹窗模式                                                                                 |
+| dialogWidth:int             | 授权页弹窗宽度，单位 dp                                                                          |
+| dialogHeight:int            | 授权页弹窗高度，单位 dp                                                                          |
+| dialogX:int                 | 授权页弹窗 X 轴偏移量，以屏幕中心为原点                                                                  |
+| dialogY:int                 | 授权页弹窗 Y 轴偏移量，以屏幕中心为原点                                                                  |
+| isBottomDialog:bool         | 授权页弹窗是否贴于屏幕底部<br>true：显示在屏幕底部，dialogY 失效<br> false：不显示在屏幕底部，以 dialogY 参数为准             |
+| isProtocolDialogMode:bool   | 协议详情页是否开启弹窗模式                                                                          |
+| isPrivacyDialogAuto:bool    | 协议未勾选弹窗点击是否自动登录                                                                        |
+| privacyDialogText:string    | 协议未勾选弹窗自定义message                                                                      |
+| privacyDialogSize:float     | 协议未勾选弹窗文本字体大小                                                                          |
+| iShowLoading:bool           | 是否显示授权页授权登录loading                                                                     |
+
+##### 自定义view
+
+| 配置项                       | 说明                                                         |
+|:--------------------------|------------------------------------------------------------|
+| widgets:List<Widget>      | 自定义view数组                                                  |
+|  ∟ viewId:string          | 控件 id                                                      |
+|  ∟ type:string            | 控件类型，可选值为 TextView、Button、ImageView                        |
+|  ∟ top:int                | 控件距离顶部的偏移，单位 dp                                            |
+|  ∟ left:int               | 控件距离左侧的偏移，单位 dp                                            |
+|  ∟ right:int              | 控件距离右侧的偏移，单位 dp                                            |
+|  ∟ bottom:int             | 控件距离底部的偏移，和top互斥，单位 dp                                     |
+|  ∟ width:int              | 控件宽度，单位 dp，默认自适应内容                                         |
+|  ∟ height:int             | 控件高度，单位 dp，默认自适应内容                                         |
+|  ∟ text:string            | 控件文本                                                       |
+|  ∟ textSize:int           | 控件文本大小，单位 px                                               |
+|  ∟ isGravityCenter:bool   | 文本内容是否居中，默认不居中                                             |
+|  ∟ textColor:string       | 控件文本颜色，十六进制颜色码                                             |
+|  ∟ backgroundColor:string | 控件背景颜色，十六进制颜色码                                             |
+|  ∟ backgroundImage:string | 控件背景图片，图片放在 Assets/plugins/Android/res/drawable 下，这里配置图片名字 |
+|  ∟ positionType:int       | 添加控件的位置类型，1表示位于导航栏部分，0表示位于导航栏下方的body部分，默认为0                |
+
+自定义 view 的点击事件回调到 CustomViewListener 脚本中
+
+```
+public class CustomViewListener : AndroidJavaProxy
+{
+    public CustomViewListener() : base("com.netease.nis.quicklogin.utils.LoginUiHelper$CustomViewListener") { }
+
+    public void onClick(AndroidJavaObject context, AndroidJavaObject view)
+    {
+        AndroidJavaObject tag = view.Call<AndroidJavaObject>("getTag");
+        //获取的 tag 即前面设置的 viewId
+    }
+}
+```
 ### 取号
 
 ```
 OnPassLogin()
 ```
 即打开授权页，取号的回调在 QuickpassCallback()中。取号之前务必设置授权页样式，否则打开的是默认的授权页
+
+```
+public class QuickpassCallback : AndroidJavaProxy
+{
+    public QuickpassCallback() : base("com.netease.nis.quicklogin.listener.QuickLoginTokenListener") { }
+    public void onGetTokenSuccess(string YDToken, string accessCode)
+    {
+        // 取号成功，YDToken：易盾token accessCode：运营商校验码。这两个参数用于从服务端获取真实手机号
+        Debug.Log("onGetTokenSuccess" + YDToken);
+        Debug.Log("onGetTokenSuccess" + accessCode);
+        QuickpassHandler.CloseLoginAuthView();
+    }
+
+    public void onGetTokenError(string YDToken, string msg)
+    {
+        // 取号失败 msg 中有详细的失败信息
+        Debug.Log("onGetTokenError" + YDToken);
+        Debug.Log("onGetTokenError" + msg);
+        QuickpassHandler.CloseLoginAuthView();
+    }
+
+    public void onCancelGetToken()
+    {
+        // 取消取号，包括点击返回按钮和物理返回键
+        Debug.Log("onCancelGetToken");
+    }
+}
+
+```
 
 ## iOS
 
@@ -203,8 +380,8 @@ setupUiConfig(json);
 /// 打开授权页面
 OnPassLoginHandler handler = new OnPassLoginHandler(onPassLoginHandler);
 IntPtr fp = Marshal.GetFunctionPointerForDelegate(handler);
-OnPassLogin(false,fp); // false 授权页弹出过程中没有动画，true 授权页弹出过程中有动画
- 
+OnPassLogin(fp);
+
 /// 点击登录按钮，回调值
 static void onPassLoginHandler (string resultStr) {
 Debug.Log(resultStr);
