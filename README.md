@@ -318,6 +318,12 @@ public class QuickpassCallback : AndroidJavaProxy
 
 ```
 
+### 关闭授权页
+
+```
+CloseLoginAuthView()
+```
+
 ## iOS
 
 ### 初始化SDK
