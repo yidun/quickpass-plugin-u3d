@@ -439,7 +439,6 @@ closeAuthController()
 ##### 基础配置
 | 属性 | 说明 |
 | :-------- | -------- |
-| presentDirectionType   | presentDirectionType = 1 表示从底部弹出|
 | backgroundColor   |设置授权页面背景颜色|
 | authWindowPop | 设置窗口类型<br>0 表示全屏模式<br> 1 表示窗口在屏幕的中间<br> 2 表示窗口在屏幕的底部(不支持横屏)|
 | faceOrientation   |设置授权页面方向<br> 0 表示设备方向未知<br>1 表示设置保持直立<br>2 表示设备上下颠倒 <br>3 表示设备向左旋转 <br> 4 表示设备向右旋转 |
@@ -453,33 +452,90 @@ closeAuthController()
 | modalTransitionStyle | 设置授权转场动画<br> 0 表示下推<br>1 表示翻转<br>2 表示淡出|
 
 ##### 自定义控件
-| 属性 | 说明 |
-| :-------- | -------- |
-| widgets | 设置授权界面自定义控件<br>例如 ： "widgets": [
+#### 事例,注意：授权页面的图片需放到iOS项目 Assets.xcassets 中
+
+```
+"widgets": [
         {
             "type": "UIButton",
-            "UIButtonType": 0,
-            "image": "static/weixin.png",
-            "title": "",
+            "image": "weixin",
+            "title": "",    
             "titleColor": "#000000",
             "titleFont": 12,
             "cornerRadius": 20,
             "action": "handleCustomEvent1",
-            "frame": {"mainScreenLeftDistance":100,"mainScreenTopDistance":360,"width":32,"height":32},
-            "backgroundImage":"static/yidun_logo.png"
+            "frame": {"mainScreenLeftDistance":70,"mainScreenTopDistance":340,"width":40,"height":40},
+            "backgroundImage":""
         },
         {
             "type": "UIButton",
-            "UIButtonType": 0,
-            "image": "static/qq.png",
-            "title": "",
+            "image": "qq",
+            "title": "",    
             "titleColor": "#FFFFFF",
             "titleFont": 12,
             "cornerRadius": 20,
             "action": "handleCustomEvent2",
-            "frame": {"mainScreenCenterXWithLeftDistance":0,"mainScreenTopDistance":360,"width":32,"height":32},
-            "backgroundImage": "static/yidun_logo.png"
-        }]|
+            "frame": {"mainScreenCenterXWithLeftDistance":0,"mainScreenTopDistance":340,"width":40,"height":40},
+            "backgroundImage": ""
+        },
+        {
+            "type": "UIButton",
+            "image": "weibo",
+            "title": "",    
+            "titleColor": "#FFFFFF",
+            "titleFont": 12,
+            "cornerRadius": 20,
+            "action": "handleCustomEvent3",
+            "frame": {"mainScreenRightDistance":70,"mainScreenTopDistance":340,"width":40,"height":40},
+            "backgroundImage": ""
+        },
+        {
+            "type": "UIButton",
+            "image": "",
+            "title": "其他登录方式",
+            "titleColor": "#000000",
+            "titleFont": 14,
+            "cornerRadius": 20,
+            "action": "handleCustomLabel",
+            "backgroundImage": "login_btn_normal",
+            "backgroundColor": "#000000",
+            "frame": {"mainScreenLeftDistance":80,"mainScreenRightDistance":80,"mainScreenTopDistance":280,"height":40}
+        },
+        {
+            "type": "UILabel",
+            "textColor": "#FFFFFF",
+            "font": 15,
+            "cornerRadius": 20,
+            "action": "handleCustomLabel1",
+            "text": "其他登录方式",
+            "textAlignment": 1,
+            "backgroundColor": "#000000",
+            "frame": {"mainScreenLeftDistance":80,"mainScreenRightDistance":80,"mainScreenBottomDistance":400,"height":40}
+        }
+    ]
+```
+
+| 配置项                                            | 说明                                 |
+| :---------------------------------------------- | ------------------------------------ |
+| widgets:JsonArray                   | 自定义view数组        |
+|  ∟ type:String          |控件类型，可选值为 UILabel、UIButton|
+|  ∟ image:String       |UIButton显示的图片。内容为图片名，不需要加图片后缀|
+|  ∟ title:String       |UIButton显示的文字|
+|  ∟ titleColor:String  |UIButton显示的字体颜色|
+|  ∟ titleFont:int      |字体的大小|
+|  ∟ cornerRadius:int   |控件的圆角|
+|  ∟ backgroundImage:String  |UIButton的背景图片|
+|  ∟ backgroundColor:String  | 控件背景颜色|
+|  ∟ mainScreenLeftDistance:int |距离屏幕左边的距离，默认为0 |
+|  ∟ mainScreenRightDistance:int |距离屏幕右边的距离，默认为0 |
+|  ∟ mainScreenTopDistance:int |距离屏幕顶部的距离，默认为0 |
+|  ∟ mainScreenCenterXWithLeftDistance:int |为0时，居中显示。大于0，向屏幕左侧偏移。小于0，向右侧偏移|
+|  ∟ width:int          |控件的宽度，默认为0 |
+|  ∟ height:int         |控件的高度，默认为0 |
+|  ∟ textAlignment:int  |0，文本左对齐。1，文本居中显示。2文本右对齐|
+|  ∟ text:String        |UILabel显示的文字|
+|  ∟ textColor:String   |UILabel的字体颜色|
+|  ∟ action:String      |设置可点击控件的点击事件，在监听中回调。详见事件监听 |
 
 ##### 背景设置视频
 
