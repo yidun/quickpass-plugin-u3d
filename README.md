@@ -376,7 +376,22 @@ string uiConfig = sr.ReadToEnd();
 string json = JsonUtility.ToJson(uiConfig);
 setupUiConfig(json);
 
+// 授权页面UI事件回调
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public delegate void UiConfigHandler(string resultString);
+    
+[AOT.MonoPInvokeCallback(typeof(UiConfigHandler))]
+static void uiConfigHandler (string resultStr) {
+    Debug.Log(resultStr);
+}
+
 ```
+
+*  回调参数说明：
+
+    |回调参数|类型|描述|
+    |----|----|----|
+    | action | String |appDPrivacy 表示点击了默认协议<br>appFPrivacy 表示点击了议第一个协议点击 <br> appSPrivacy 表示点击了第二个协议 <br> loginAction 表示点击了登录按钮，data.checked = true 表示在点击登录按钮时复选框选已选中反之<br> checkedAction 表示点击了复选框，data.checked = true 表示复选框已选中反之<br>其他自定义的action|
 
 ###  取号，即打开授权页
 
@@ -404,6 +419,14 @@ Debug.Log(resultStr);
     | accessToken | String |如果取号成功则返回运营商 token，否则无此字段|
     | resultCode | String |运营商返回的请求码|
     | desc | String |取号成功信息描述|
+    
+###  关闭授权页
+
+```
+closeAuthController()
+
+```
+
 
 #### config 可配置项说明： iOS版
 
