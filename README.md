@@ -63,6 +63,12 @@ Init(businessId, timeout, debug)
     | timeout | int |否| 6000 |运营商预取号和授权登录接口的超时时间，单位毫秒|
     | debug | boolean |否| false |是否打开debug开关|
 
+### 当前环境是否支持号码认证
+
+```
+CheckVerifyEnable()
+```
+
 ### 预取号
 
 ```
