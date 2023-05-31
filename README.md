@@ -63,6 +63,12 @@ Init(businessId, timeout, debug)
     | timeout | int |否| 6000 |运营商预取号和授权登录接口的超时时间，单位毫秒|
     | debug | boolean |否| false |是否打开debug开关|
 
+### 当前环境是否支持号码认证
+
+```
+CheckVerifyEnable()
+```
+
 ### 预取号
 
 ```
@@ -111,7 +117,7 @@ QuickpassUiConfig 是可配置项，具体的配置项看注释
 | 配置项                        | 说明                                   |
 |----------------------------| -------------------------------------- |
 | statusBarColor:string      |     设置状态栏背景颜色，十六进制RGB值，如 "#ff0000"|
-| isStatusBarDarkColor:bool  | 设置状态栏字体图标颜色是否为暗色(黑色) |
+| isStatusBarDarkColor:bool  | 设置状态栏字体图标颜色是否为暗色(黑色)，默认false |
 
 ##### 导航栏
 
@@ -121,14 +127,14 @@ QuickpassUiConfig 是可配置项，具体的配置项看注释
 | navBackIconWidth:int                            | 设置导航栏返回图标的宽度，单位 dp                                     |
 | navBackIconHeight:int                           | 设置导航栏返回图标的高度，单位 dp                                     |
 | navBackIconGravity:int                          | 设置导航栏返回图标位置，居左 3，居右 5，默认居左                                    |
-| isHideBackIcon:bool                             | 设置是否隐藏导航栏返回按钮                                       |
+| isHideBackIcon:bool                             | 设置是否隐藏导航栏返回按钮，默认 false                                       |
 | navBackgroundColor:string                       | 设置导航栏背景颜色，十六进制RGB值，如 "#ff0000"                                           |
 | navHeight:int                                   | 设置导航栏高度，单位 dp                                       |
 | navTitle:string                                 | 设置导航栏标题                                               |
 | navTitleColor:string                            | 设置导航栏标题颜色，十六进制RGB值，如 "#ff0000"                                          |
 | navTitleSize:int                                | 设置导航栏标题大小，单位 sp                                   |
-| isNavTitleBold:bool                             | 设置导航栏标题是否为粗体                                     |
-| isHideNav:bool                                  | 设置是否隐藏导航栏                                           |
+| isNavTitleBold:bool                             | 设置导航栏标题是否为粗体，默认false                                     |
+| isHideNav:bool                                  | 设置是否隐藏导航栏，默认 false                                           |
 
 ##### 应用 Logo
 
@@ -140,7 +146,7 @@ QuickpassUiConfig 是可配置项，具体的配置项看注释
 | logoTopYOffset:int                        | 设置 logo 顶部 Y 轴偏移，单位 dp                                  |
 | logoBottomYOffset:int                     | 设置 logo 距离屏幕底部偏移，单位 dp                             |
 | logoXOffset:int                           | 设置 logo 水平方向的偏移，单位 dp                               |
-| isHideLogo:bool                           | 设置是否隐藏 logo                                             |
+| isHideLogo:bool                           | 设置是否隐藏 logo，默认 false                                             |
 
 ##### 手机掩码
 
@@ -192,16 +198,16 @@ QuickpassUiConfig 是可配置项，具体的配置项看注释
 | privacyTextMarginLeft:int                                  | 设置隐私栏复选框和文字内边距，单位 dp                             |
 | privacyMarginLeft:int                                      | 设置隐私栏水平方向的偏移，单位 dp                             |
 | privacyMarginRight:int                                     | 设置隐私栏右侧边距，单位 dp                                   |
-| privacyState:bool                                          | 设置隐私栏协议复选框勾选状态，true 勾选，false 不勾选          |
-| isHidePrivacyCheckBox:bool                                 | 设置是否隐藏隐私栏勾选框                                     |
-| isPrivacyTextGravityCenter:bool                            | 设置隐私栏文案换行后是否居中对齐，如果为true则居中对齐，否则左对齐 |
+| privacyState:bool                                          | 设置隐私栏协议复选框勾选状态，true 勾选，false 不勾选，默认 false          |
+| isHidePrivacyCheckBox:bool                                 | 设置是否隐藏隐私栏勾选框，默认 false                                     |
+| isPrivacyTextGravityCenter:bool                            | 设置隐私栏文案换行后是否居中对齐，如果为true则居中对齐，否则左对齐，默认 false |
 | checkBoxGravity:int                                        | 设置隐私栏勾选框与文本协议对齐方式，可选择顶部（48），居中（17），底部（80）等 |
 | checkBoxWith:int                                           | 设置隐私栏复选框宽度，单位 dp|
 | checkBoxHeight:int                                         | 设置隐私栏复选框高度，单位 dp |
 | checkedImageName:string                                    | 设置隐私栏复选框选中时的图片资源，图标资源放在 Assets/plugins/Android/res/drawable 目录下，这里配置图标名字 |
 | unCheckedImageName:string                                  | 设置隐私栏复选框未选中时的图片资源，图标资源放在 Assets/plugins/Android/res/drawable 目录下，这里配置图标名字 |
 | privacyTextStart:string                                    | 设置隐私栏声明部分起始文案 。如：隐私栏声明为"登录即同意《隐私政策》和《中国移动认证条款》且授权易盾授予本机号码"，则可传入"登录即同意" |
-| isHidePrivacySmh:bool                                      | 是否隐藏运营商协议书名号                                           |
+| isHidePrivacySmh:bool                                      | 是否隐藏运营商协议书名号，默认 false                                          |
 | protocolText:string                                        | 设置隐私栏协议文本                                           |
 | protocolLink:string                                        | 设置隐私栏协议链接                                           |
 | protocol2Text:string                                       | 设置隐私栏协议 2 文本                                          |
@@ -214,7 +220,9 @@ QuickpassUiConfig 是可配置项，具体的配置项看注释
 
 | 配置项                                                        | 说明                                                  |
 |:-----------------------------------------------------------| --------------------------------------------------- |
-| protocolNavTitle:string                                    | 设置协议 Web 页面导航栏标题，如果需要根据不同运营商设置不同标题|
+| protocolNavTitleCm:string                                  | 设置移动协议 Web 页面导航栏标题，需要配合protocolNavTitleCu和protocolNavTitleCt一起使用|
+| protocolNavTitleCu:string                                  | 设置联通协议 Web 页面导航栏标题，需要配合protocolNavTitleCm和protocolNavTitleCt一起使用|
+| protocolNavTitleCt:string                                  | 设置电信协议 Web 页面导航栏标题，需要配合protocolNavTitleCm和protocolNavTitleCu一起使用|
 | protocolNavBackIcon:string                                 | 设置协议 Web 页面导航栏返回图标，图标资源放在 Assets/plugins/Android/res/drawable 目录下，这里配置图标名字 |
 | protocolNavColor:string                                    | 设置协议Web页面导航栏颜色                                    |
 | protocolNavTitleColor:string                               | 协议Web页面导航栏标题颜色                                    |
@@ -234,18 +242,19 @@ QuickpassUiConfig 是可配置项，具体的配置项看注释
 | backgroundVideoImage:string | 设置视频背景时的预览图，图片放在 Assets/plugins/Android/res/drawable 下，这里配置图标名字，配合 backgroundVideo 使用  |
 | enterAnimation:string       | 设置授权页进场动画，enterAnimation 进场动画xml无后缀文件名。放置在 Assets/plugins/Android/res/anim 目录下         |
 | exitAnimation:string        | 设置授权页退出动画，exitAnimation 进场动画xml无后缀文件名。放置在 Assets/plugins/Android/res/anim 目录下          |
-| isLandscape:bool            | 是否横屏                                                                                   |
-| isDialogMode:bool           | 是否弹窗模式                                                                                 |
+| isLandscape:bool            | 是否横屏，默认 false                                                                                   |
+| isDialogMode:bool           | 是否弹窗模式，默认 false                                                                                 |
 | dialogWidth:int             | 授权页弹窗宽度，单位 dp                                                                          |
 | dialogHeight:int            | 授权页弹窗高度，单位 dp                                                                          |
 | dialogX:int                 | 授权页弹窗 X 轴偏移量，以屏幕中心为原点                                                                  |
 | dialogY:int                 | 授权页弹窗 Y 轴偏移量，以屏幕中心为原点                                                                  |
-| isBottomDialog:bool         | 授权页弹窗是否贴于屏幕底部<br>true：显示在屏幕底部，dialogY 失效<br> false：不显示在屏幕底部，以 dialogY 参数为准             |
-| isProtocolDialogMode:bool   | 协议详情页是否开启弹窗模式                                                                          |
-| isPrivacyDialogAuto:bool    | 协议未勾选弹窗点击是否自动登录                                                                        |
+| isBottomDialog:bool         | 授权页弹窗是否贴于屏幕底部<br>true：显示在屏幕底部，dialogY 失效<br> false：不显示在屏幕底部，以 dialogY 参数为准，默认 false             |
+| isProtocolDialogMode:bool   | 协议详情页是否开启弹窗模式，默认 false                                                                          |
+| isPrivacyDialogAuto:bool    | 协议未勾选弹窗点击是否自动登录，默认 false                                                                        |
 | privacyDialogText:string    | 协议未勾选弹窗自定义message                                                                      |
 | privacyDialogSize:float     | 协议未勾选弹窗文本字体大小                                                                          |
-| iShowLoading:bool           | 是否显示授权页授权登录loading                                                                     |
+| iShowLoading:bool           | 授权页授权登录是否显示loading，默认 false                                                                     |
+| backPressedAvailable:bool   | 授权页物理返回键是否可用，默认 false                                                                     |
 
 ##### 自定义view
 
@@ -262,7 +271,7 @@ QuickpassUiConfig 是可配置项，具体的配置项看注释
 |  ∟ height:int             | 控件高度，单位 dp，默认自适应内容                                         |
 |  ∟ text:string            | 控件文本                                                       |
 |  ∟ textSize:int           | 控件文本大小，单位 px                                               |
-|  ∟ isGravityCenter:bool   | 文本内容是否居中，默认不居中                                             |
+|  ∟ isGravityCenter:bool   | 文本内容是否居中，默认 false                                             |
 |  ∟ textColor:string       | 控件文本颜色，十六进制颜色码                                             |
 |  ∟ backgroundColor:string | 控件背景颜色，十六进制颜色码                                             |
 |  ∟ backgroundImage:string | 控件背景图片，图片放在 Assets/plugins/Android/res/drawable 下，这里配置图片名字 |
@@ -282,6 +291,22 @@ public class CustomViewListener : AndroidJavaProxy
     }
 }
 ```
+
+#### 授权页 view 的点击事件回调到 ClickEventListener 中。viewType 为 1 时表示隐私协议，2 表示复选框，3 表示左上角返回按钮，4 表示登录按钮。当 viewType 为 2 或 4 时，code 字段为1 则表示复选框勾选，为 0 则表示复选框未勾选
+
+```
+public class ClickEventListener : AndroidJavaProxy
+{
+    public ClickEventListener() : base("com.netease.nis.quicklogin.listener.ClickEventListener") { }
+
+    public void onClick(int viewType, int code)
+    {
+        Debug.Log("被点击的view为：" + viewType + "协议复选框状态为：" + code);
+    }
+}
+
+```
+
 ### 取号
 
 ```
