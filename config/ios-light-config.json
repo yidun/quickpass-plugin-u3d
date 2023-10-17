@@ -97,8 +97,6 @@
 
   "bgImage":"",
   "launchImage":"",
-  "faceOrientation" : 0,
-  "modalTransitionStyle": 1,
   "contentMode": 0,
   "appPrivacyLineSpacing": 1,
   "appPrivacyWordSpacing": 1,
