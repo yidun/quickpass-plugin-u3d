@@ -123,16 +123,18 @@ QuickpassUiConfig 是可配置项，具体的配置项看注释
 
 | 配置项                                             | 说明                                                         |
 |:------------------------------------------------| ------------------------------------------------------------ |
-| navBackIcon:string                              | 导航栏图标，图标资源放在 Assets/plugins/Android/res/drawable 目录下，这里配置图标名字 |
+| navBackIcon:string                              | 导航栏图标，图标资源放在 Assets/plugins/Android/CustomAndroidResource.androidlib/res/drawable 目录下，这里配置图标名字 |
 | navBackIconWidth:int                            | 设置导航栏返回图标的宽度，单位 dp                                     |
 | navBackIconHeight:int                           | 设置导航栏返回图标的高度，单位 dp                                     |
 | navBackIconGravity:int                          | 设置导航栏返回图标位置，居左 3，居右 5，默认居左                                    |
+| navBackIconMargin:int                           | 设置导航栏返回图标上下左右边距，单位 dp                                     |
 | isHideBackIcon:bool                             | 设置是否隐藏导航栏返回按钮，默认 false                                       |
 | navBackgroundColor:string                       | 设置导航栏背景颜色，十六进制RGB值，如 "#ff0000"                                           |
 | navHeight:int                                   | 设置导航栏高度，单位 dp                                       |
 | navTitle:string                                 | 设置导航栏标题                                               |
 | navTitleColor:string                            | 设置导航栏标题颜色，十六进制RGB值，如 "#ff0000"                                          |
 | navTitleSize:int                                | 设置导航栏标题大小，单位 sp                                   |
+| navTitleDpSize:int                                | 设置导航栏标题大小，单位 dp                                   |
 | isNavTitleBold:bool                             | 设置导航栏标题是否为粗体，默认false                                     |
 | isHideNav:bool                                  | 设置是否隐藏导航栏，默认 false                                           |
 
@@ -140,7 +142,7 @@ QuickpassUiConfig 是可配置项，具体的配置项看注释
 
 | 配置项                                       | 说明                                                         |
 |:------------------------------------------| ------------------------------------------------------------ |
-| logoIconName:string                       | 应用 logo 图标，图标资源放在 Assets/plugins/Android/res/drawable 目录下，这里配置图标名字 |
+| logoIconName:string                       | 应用 logo 图标，图标资源放在 Assets/plugins/Android/CustomAndroidResource.androidlib/res/drawable 目录下，这里配置图标名字 |
 | logoWidth:int                             | 设置应用logo宽度，单位dp                                     |
 | logoHeight:int                            | 设置应用 logo 高度，单位 dp                                     |
 | logoTopYOffset:int                        | 设置 logo 顶部 Y 轴偏移，单位 dp                                  |
@@ -158,6 +160,7 @@ QuickpassUiConfig 是可配置项，具体的配置项看注释
 | maskNumberDpSize:int                                       | 设置手机掩码字体大小，单位 dp                                 |
 | maskNumberTopYOffset:int                                   | 设置手机掩码顶部Y轴偏移，单位 dp                         |
 | maskNumberBottomYOffset:int                                | 设置手机掩码距离屏幕底部偏移，单位 dp                           |
+| maskNumberBackgroundRes:string                             | 设置手机掩码背景图                                           |
 
 ##### 认证品牌
 
@@ -180,7 +183,7 @@ QuickpassUiConfig 是可配置项，具体的配置项看注释
 | loginBtnTextColor:string                             | 设置登录按钮文本颜色，十六进制RGB值，如 "#ff0000"                                 |
 | loginBtnWidth:int                                    | 设置登录按钮宽度，单位 dp                             |
 | loginBtnHeight:int                                   | 设置登录按钮高度，单位 dp                             |
-| loginBtnBackgroundRes:string                         | 设置登录按钮背景图标，图标资源放在 Assets/plugins/Android/res/drawable 目录下，这里配置图标名字 |
+| loginBtnBackgroundRes:string                         | 设置登录按钮背景图标，图标资源放在 Assets/plugins/Android/CustomAndroidResource.androidlib/res/drawable 目录下，这里配置图标名字 |
 | loginBtnTopYOffset:int                               | 设置登录按钮顶部Y轴偏移，单位 dp                      |
 | loginBtnBottomYOffset:int                            | 设置登录按钮距离屏幕底部偏移，单位 dp                 |
 | loginBtnXOffset:int                                  | 设置登录按钮水平方向的偏移，单位 dp                   |
@@ -190,7 +193,9 @@ QuickpassUiConfig 是可配置项，具体的配置项看注释
 | 配置项                                                        | 说明                                                         |
 |:-----------------------------------------------------------| ------------------------------------------------------------ |
 | privacyTextColor:string                                    | 设置隐私栏文本颜色，不包括协议 ，如若隐私栏协议文案为：登录即同意《中国移动认证条款》且授权 QuickLogin 登录， 则该API对除协议‘《中国移动认证条款》’区域外的其余文本生效 |
+| privacyDialogTextColor:string                              | 协议未勾选弹窗隐私栏文本颜色，不包括协议                                                                              |
 | privacyProtocolColor:string                                | 设置隐私栏协议颜色 。例如：登录即同意《中国移动认证条款》且授权 QuickLogin 登录 ， 则该 API 仅对‘《中国移动认证条款》’文案生效 |
+| privacyDialogProtocolColor:string                          | 协议未勾选弹窗隐私栏协议颜色                                                                              |
 | privacySize:int                                            | 设置隐私栏区域字体大小，单位 px                               |
 | privacyDpSize:int                                          | 设置隐私栏区域字体大小，单位 dp                               |
 | privacyTopYOffset:int                                      | 设置隐私栏顶部Y轴偏移，单位 dp                                |
@@ -204,9 +209,16 @@ QuickpassUiConfig 是可配置项，具体的配置项看注释
 | checkBoxGravity:int                                        | 设置隐私栏勾选框与文本协议对齐方式，可选择顶部（48），居中（17），底部（80）等 |
 | checkBoxWith:int                                           | 设置隐私栏复选框宽度，单位 dp|
 | checkBoxHeight:int                                         | 设置隐私栏复选框高度，单位 dp |
-| checkedImageName:string                                    | 设置隐私栏复选框选中时的图片资源，图标资源放在 Assets/plugins/Android/res/drawable 目录下，这里配置图标名字 |
-| unCheckedImageName:string                                  | 设置隐私栏复选框未选中时的图片资源，图标资源放在 Assets/plugins/Android/res/drawable 目录下，这里配置图标名字 |
+| checkedImageName:string                                    | 设置隐私栏复选框选中时的图片资源，图标资源放在 Assets/plugins/Android/CustomAndroidResource.androidlib/res/drawable 目录下，这里配置图标名字 |
+| unCheckedImageName:string                                  | 设置隐私栏复选框未选中时的图片资源，图标资源放在 Assets/plugins/Android/CustomAndroidResource.androidlib/res/drawable 目录下，这里配置图标名字 |
 | privacyTextStart:string                                    | 设置隐私栏声明部分起始文案 。如：隐私栏声明为"登录即同意《隐私政策》和《中国移动认证条款》且授权易盾授予本机号码"，则可传入"登录即同意" |
+| privacyTextStartSize:float                                 | 设置隐私栏声明部分起始文案大小                                         |
+| privacyLineSpacingAdd:float                                | 设置隐私文本行间距                                        |
+| privacyLineSpacingMul:float                                | 设置隐私文本行间距倍数                                         |
+| protocolConnect:string                                     | 设置运营商协议与自定义隐私栏协议连接符"和"                                |
+| userProtocolConnect:string                                 | 设置自定义隐私栏协议之间连接符"、"                                |
+| isOperatorPrivacyAtLast:bool                               | 设置运营商协议的位置是否在末尾 ，默认 false                               |
+| privacyTextStartSize:float                                 | 设置隐私栏声明部分起始文案大小                                         |
 | isHidePrivacySmh:bool                                      | 是否隐藏运营商协议书名号，默认 false                                          |
 | protocolText:string                                        | 设置隐私栏协议文本                                           |
 | protocolLink:string                                        | 设置隐私栏协议链接                                           |
@@ -223,7 +235,7 @@ QuickpassUiConfig 是可配置项，具体的配置项看注释
 | protocolNavTitleCm:string                                  | 设置移动协议 Web 页面导航栏标题，需要配合protocolNavTitleCu和protocolNavTitleCt一起使用|
 | protocolNavTitleCu:string                                  | 设置联通协议 Web 页面导航栏标题，需要配合protocolNavTitleCm和protocolNavTitleCt一起使用|
 | protocolNavTitleCt:string                                  | 设置电信协议 Web 页面导航栏标题，需要配合protocolNavTitleCm和protocolNavTitleCu一起使用|
-| protocolNavBackIcon:string                                 | 设置协议 Web 页面导航栏返回图标，图标资源放在 Assets/plugins/Android/res/drawable 目录下，这里配置图标名字 |
+| protocolNavBackIcon:string                                 | 设置协议 Web 页面导航栏返回图标，图标资源放在 Assets/plugins/Android/CustomAndroidResource.androidlib/res/drawable 目录下，这里配置图标名字 |
 | protocolNavColor:string                                    | 设置协议Web页面导航栏颜色                                    |
 | protocolNavTitleColor:string                               | 协议Web页面导航栏标题颜色                                    |
 | protocolNavHeight:int                                      | 设置协议 Web 页面导航栏高度                                    |
@@ -231,17 +243,19 @@ QuickpassUiConfig 是可配置项，具体的配置项看注释
 | protocolNavTitleDpSize:int                                 | 设置协议 Web 页面导航栏标题大小，单位 dp                        |
 | protocolNavBackIconWidth:int                               | 设置协议 Web 页面导航栏返回按钮宽度，单位 dp                    |
 | protocolNavBackIconHeight:int                              | 设置协议 Web 页面导航栏返回按钮高度，单位 dp                    |
+| protocolNavBackIconMargin:int                              | 设置协议 Web 页面导航栏返回按钮距离左边距离，单位 dp                    |
+| protocolBackgroundRes:string                               | 设置协议 Web 页面背景图，图标资源放在 Assets/plugins/Android/CustomAndroidResource.androidlib/res/drawable 目录下，这里配置图标名字|
 
 ##### 其他
 
 | 配置项                         | 说明                                                                                     |
 |:----------------------------|----------------------------------------------------------------------------------------|
-| backgroundImage:string      | 设置登录页面背景，图片资源放在 Assets/plugins/Android/res/drawable 目录下，这里配置图片名字                       |
-| backgroundGif:string        | 设置登录页面背景为 Gif，Gif 资源需要放置到 Assets/plugins/Android/res/drawable 目录下，传入资源名称即可             |
-| backgroundVideo:string      | 设置登录页面背景为视频，视频放在 Assets/plugins/Android/res/raw 文件夹下，这里配置视频文件名字。必须同时配置 backgroundVideo |
+| backgroundImage:string      | 设置登录页面背景，图片资源放在 Assets/plugins/Android/CustomAndroidResource.androidlib/res/drawable 目录下，这里配置图片名字                       |
+| backgroundGif:string        | 设置登录页面背景为 Gif，Gif 资源需要放置到Assets/plugins/Android/CustomAndroidResource.androidlib/res/drawable 目录下，传入资源名称即可             |
+| backgroundVideo:string      | 设置登录页面背景为视频，视频放在 Assets/plugins/Android/CustomAndroidResource.androidlib/res/raw 文件夹下，这里配置视频文件名字。必须同时配置 backgroundVideo |
 | backgroundVideoImage:string | 设置视频背景时的预览图，图片放在 Assets/plugins/Android/res/drawable 下，这里配置图标名字，配合 backgroundVideo 使用  |
-| enterAnimation:string       | 设置授权页进场动画，enterAnimation 进场动画xml无后缀文件名。放置在 Assets/plugins/Android/res/anim 目录下         |
-| exitAnimation:string        | 设置授权页退出动画，exitAnimation 进场动画xml无后缀文件名。放置在 Assets/plugins/Android/res/anim 目录下          |
+| enterAnimation:string       | 设置授权页进场动画，enterAnimation 进场动画xml无后缀文件名。放置在 Assets/plugins/Android/CustomAndroidResource.androidlib/res/anim 目录下         |
+| exitAnimation:string        | 设置授权页退出动画，exitAnimation 进场动画xml无后缀文件名。放置在 Assets/plugins/Android/CustomAndroidResource.androidlib/res/anim 目录下          |
 | isLandscape:bool            | 是否横屏，默认 false                                                                                   |
 | isDialogMode:bool           | 是否弹窗模式，默认 false                                                                                 |
 | dialogWidth:int             | 授权页弹窗宽度，单位 dp                                                                          |
@@ -252,9 +266,10 @@ QuickpassUiConfig 是可配置项，具体的配置项看注释
 | isProtocolDialogMode:bool   | 协议详情页是否开启弹窗模式，默认 false                                                                          |
 | isPrivacyDialogAuto:bool    | 协议未勾选弹窗点击是否自动登录，默认 false                                                                        |
 | privacyDialogText:string    | 协议未勾选弹窗自定义message                                                                      |
-| privacyDialogSize:float     | 协议未勾选弹窗文本字体大小                                                                          |
-| iShowLoading:bool           | 授权页授权登录是否显示loading，默认 false                                                                     |
+| privacyDialogTextSize:float     | 协议未勾选弹窗文本字体大小                                                                          |
+| isShowLoading:bool           | 授权页授权登录是否显示loading，默认 false                                                                     |
 | backPressedAvailable:bool   | 授权页物理返回键是否可用，默认 false                                                                     |
+| virtualButtonHidden:bool    | 是否隐藏虚拟按键，默认 false                                                                          |
 
 ##### 自定义view
 
