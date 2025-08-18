@@ -161,6 +161,7 @@ QuickpassUiConfig 是可配置项，具体的配置项看注释
 | maskNumberTopYOffset:int                                   | 设置手机掩码顶部Y轴偏移，单位 dp                         |
 | maskNumberBottomYOffset:int                                | 设置手机掩码距离屏幕底部偏移，单位 dp                           |
 | maskNumberBackgroundRes:string                             | 设置手机掩码背景图                                           |
+| maskNumberBold:bool                                        | 手机掩码是否加粗                                           |
 
 ##### 认证品牌
 
@@ -172,6 +173,7 @@ QuickpassUiConfig 是可配置项，具体的配置项看注释
 | sloganTopYOffset:int                          | 设置认证品牌顶部 Y 轴偏移，单位 dp      |
 | sloganBottomYOffset:int                       | 设置认证品牌距离屏幕底部偏移，单位 dp |
 | sloganXOffset:int                             | 设置认证品牌水平方向的偏移，单位 dp   |
+| sloganBold:bool                               | 认证品牌字体是否加粗   |
 
 ##### 登录按钮
 
@@ -187,6 +189,9 @@ QuickpassUiConfig 是可配置项，具体的配置项看注释
 | loginBtnTopYOffset:int                               | 设置登录按钮顶部Y轴偏移，单位 dp                      |
 | loginBtnBottomYOffset:int                            | 设置登录按钮距离屏幕底部偏移，单位 dp                 |
 | loginBtnXOffset:int                                  | 设置登录按钮水平方向的偏移，单位 dp                   |
+| loginBtnMarginLeft:int                               | 设置登录按钮距离屏幕左边距离，单位 dp                   |
+| loginBtnMarginRight:int                              | 设置登录按钮距离屏幕右边距离，单位 dp                   |
+| loginBtnBold:bool                                    | 设置登录按钮文本是否加粗                 |
 
 ##### 隐私协议
 
@@ -198,6 +203,8 @@ QuickpassUiConfig 是可配置项，具体的配置项看注释
 | privacyDialogProtocolColor:string                          | 协议未勾选弹窗隐私栏协议颜色                                                                              |
 | privacySize:int                                            | 设置隐私栏区域字体大小，单位 px                               |
 | privacyDpSize:int                                          | 设置隐私栏区域字体大小，单位 dp                               |
+| privacyBold:bool                                           | 设置隐私栏区域字体是否加粗                              |
+| privacyWidth:int                                           | 设置隐私栏区域宽度，单位 dp                               |
 | privacyTopYOffset:int                                      | 设置隐私栏顶部Y轴偏移，单位 dp                                |
 | privacyBottomYOffset:int                                   | 设置隐私栏距离屏幕底部偏移，单位 dp                           |
 | privacyTextMarginLeft:int                                  | 设置隐私栏复选框和文字内边距，单位 dp                             |
@@ -227,6 +234,37 @@ QuickpassUiConfig 是可配置项，具体的配置项看注释
 | protocol3Text:string                                       | 设置隐私栏协议 3 文本                                          |
 | protocol3Link:string                                       | 设置隐私栏协议 3 链接                                          |
 | privacyTextEnd:string                                      | 设置隐私栏声明部分尾部文案。如：隐私栏声明为"登录即同意《隐私政策》和《中国移动认证条款》且授权易盾授予本机号码"，则可传入"且授权易盾授予本机号码" |
+| privacyDialogWidth:int                                     | 协议未勾选隐私弹窗宽度                                         |
+| privacyDialogHeight:int                                    | 协议未勾选隐私弹窗高度                                          |
+| privacyDialogBg:string                                     |  协议未勾选隐私弹窗背景                                          |
+| privacyDialogTitle:string                                  |  协议未勾选隐私弹窗标题                                          |
+| privacyDialogTitleSize:float                               | 协议未勾选隐私弹窗标题字体大小                                         |
+| privacyDialogTitleColor:string                             | 协议未勾选隐私弹窗标题颜色                                          |
+| privacyDialogTitleMarginTop:int                            |  协议未勾选隐私弹窗标题距离顶部的距离                                          |
+| privacyDialogTitleBold:bool                                | 协议未勾选隐私弹窗标题是否加粗                                          |
+| privacyDialogContentStart:string                           |  协议未勾选隐私弹窗开始文本                                        |
+| privacyDialogContentEnd:string                             | 协议未勾选隐私弹窗结束文本                                          |
+| privacyDialogContentBold:bool                              | 协议未勾选隐私弹窗文本是否加粗                                          |
+| privacyDialogContentMarginLeft:int                         | 协议未勾选隐私弹窗文本距离左边的距离                                          |
+| privacyDialogContentMarginRight:int                        | 协议未勾选隐私弹窗文本距离右边的距离                                         |
+| privacyDialogContentMarginTop:int                          | 协议未勾选隐私弹窗文本距离顶部的距离                                         |
+| privacyDialogBtnTextSize:float                             | 协议未勾选隐私弹窗按钮文本大小                                          |
+| privacyDialogBtnTextBold:bool                              | 协议未勾选隐私弹窗按钮文本是否加粗                                          |
+| privacyDialogBtnWidth:int                                  | 协议未勾选隐私弹窗按钮宽度                                          |
+| privacyDialogBtnHeight:int                                 | 协议未勾选隐私弹窗按钮高度                                          |
+| privacyDialogBtnMarginLeft:int                             |  协议未勾选隐私弹窗按钮距离左边距离                                  |
+| privacyDialogBtnMarginRight:int                            | 协议未勾选隐私弹窗按钮距离右边距离                                         |
+| privacyDialogBtnMarginTop:int                              |  协议未勾选隐私弹窗按钮距离顶部距离                                       |
+| privacyDialogBtnMarginBottom:int                           | 协议未勾选隐私弹窗按钮距离底部距离                                          |
+| privacyDialogBtnAgreeText:string                           | 协议未勾选隐私弹窗按钮同意文本                                          |
+| privacyDialogBtnAgreeTextColor:string                      |  协议未勾选隐私弹窗按钮同意文本颜色                                          |
+| privacyDialogBtnAgreeBg:string                             | 协议未勾选隐私弹窗按钮同意文本背景                                         |
+| privacyDialogBtnDisagreeText:string                        |  协议未勾选隐私弹窗按钮拒绝文本                                          |
+| privacyDialogBtnDisagreeTextColor:string                   | 协议未勾选隐私弹窗按钮拒绝文本颜色                                         |
+| privacyDialogBtnDisagreeBg:string                          | 协议未勾选隐私弹窗按钮拒绝文本背景                                          |
+| isPrivacyDialogAuto:bool                                   | 协议未勾选弹窗点击是否自动登录，默认 false                                    |
+| privacyDialogText:string                                   | 协议未勾选弹窗自定义message                                          |
+| privacyDialogTextSize:float                                | 协议未勾选弹窗文本字体大小                                         |
 
 ##### 协议详情 Web 页面导航栏
 
@@ -244,7 +282,7 @@ QuickpassUiConfig 是可配置项，具体的配置项看注释
 | protocolNavBackIconWidth:int                               | 设置协议 Web 页面导航栏返回按钮宽度，单位 dp                    |
 | protocolNavBackIconHeight:int                              | 设置协议 Web 页面导航栏返回按钮高度，单位 dp                    |
 | protocolNavBackIconMargin:int                              | 设置协议 Web 页面导航栏返回按钮距离左边距离，单位 dp                    |
-| protocolBackgroundRes:string                               | 设置协议 Web 页面背景图，图标资源放在 Assets/plugins/Android/CustomAndroidResource.androidlib/res/drawable 目录下，这里配置图标名字|
+| protocolNavTitleBold:bool                                  | 设置协议 Web 页面导航栏标题是否加粗                    |
 
 ##### 其他
 
@@ -264,9 +302,6 @@ QuickpassUiConfig 是可配置项，具体的配置项看注释
 | dialogY:int                 | 授权页弹窗 Y 轴偏移量，以屏幕中心为原点                                                                  |
 | isBottomDialog:bool         | 授权页弹窗是否贴于屏幕底部<br>true：显示在屏幕底部，dialogY 失效<br> false：不显示在屏幕底部，以 dialogY 参数为准，默认 false             |
 | isProtocolDialogMode:bool   | 协议详情页是否开启弹窗模式，默认 false                                                                          |
-| isPrivacyDialogAuto:bool    | 协议未勾选弹窗点击是否自动登录，默认 false                                                                        |
-| privacyDialogText:string    | 协议未勾选弹窗自定义message                                                                      |
-| privacyDialogTextSize:float     | 协议未勾选弹窗文本字体大小                                                                          |
 | isShowLoading:bool           | 授权页授权登录是否显示loading，默认 false                                                                     |
 | backPressedAvailable:bool   | 授权页物理返回键是否可用，默认 false                                                                     |
 | virtualButtonHidden:bool    | 是否隐藏虚拟按键，默认 false                                                                          |
